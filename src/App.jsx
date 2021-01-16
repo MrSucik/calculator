@@ -28,13 +28,11 @@ const App = () => {
       return;
     }
     const result = calculate(
-      parseFloat(numberOne),
-      parseFloat(numberTwo),
+      parseFloat(numberOne) || 0,
+      parseFloat(numberTwo) || 0,
       selectedOperation
     );
-    showMessageBox(`The result is: ${result?.toFixed(2)}`, {
-      variant: "success",
-    });
+    showMessageBox(`The result is: ${result}`, { variant: "success" });
   };
   return (
     <>
