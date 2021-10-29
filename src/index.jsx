@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
 import { SnackbarProvider } from "notistack";
-import App from "./App";
+import Calculator from "./Calculator";
 import Container from "./Container";
 
 ReactDOM.render(
@@ -14,7 +14,7 @@ ReactDOM.render(
     <CssBaseline />
     <SnackbarProvider>
       <Container>
-        <App />
+        <Calculator />
       </Container>
     </SnackbarProvider>
   </ThemeProvider>,

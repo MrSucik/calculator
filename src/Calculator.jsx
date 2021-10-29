@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button, MenuItem, Select, TextField } from "@material-ui/core";
+import { Button, MenuItem, Select } from "@material-ui/core";
 import { useSnackbar } from "notistack";
+import { Field } from "./Field";
 
 const calculate = (a, b, operation) => {
   switch (operation) {
@@ -17,38 +18,37 @@ const calculate = (a, b, operation) => {
   }
 };
 
-const App = () => {
+const Calculator = () => {
   const { enqueueSnackbar: showMessageBox } = useSnackbar();
   const [selectedOperation, setSelectedOperation] = useState("+");
-  const [numberOne, setNumberOne] = useState("");
-  const [numberTwo, setNumberTwo] = useState("");
+  const [numberOne, setNumberOne] = useState(0);
+  const [numberTwo, setNumberTwo] = useState(0);
+  const isValidNumber = (input) => input !== "" && !isNaN(input);
   const handleButtonClick = () => {
-    if (isNaN(numberOne) || isNaN(numberTwo)) {
+    const inputValid = isValidNumber(numberOne) && isValidNumber(numberTwo);
+    if (!inputValid) {
       showMessageBox("Provide valid numbers", { variant: "error" });
       return;
     }
     const result = calculate(
-      parseFloat(numberOne) || 0,
-      parseFloat(numberTwo) || 0,
+      parseFloat(numberOne),
+      parseFloat(numberTwo),
       selectedOperation
     );
-    showMessageBox(`The result is: ${result}`, { variant: "success" });
+    const resultValid = !isNaN(result) && result !== Infinity;
+    showMessageBox(`The result is: ${result}`, {
+      variant: resultValid ? "success" : "warning",
+    });
   };
   return (
     <>
-      <TextField
-        type="number"
-        variant="outlined"
+      <Field
         placeholder="Number One"
-        size="small"
         value={numberOne}
         onChange={({ target }) => setNumberOne(target.value)}
       />
-      <TextField
-        type="number"
-        variant="outlined"
+      <Field
         placeholder="Number Two"
-        size="small"
         value={numberTwo}
         onChange={({ target }) => setNumberTwo(target.value)}
       />
@@ -69,4 +69,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Calculator;

@@ -9,10 +9,10 @@ const useStyles = makeStyles((theme) =>
     },
     paper: {
       margin: "auto",
-      maxWidth: 300,
+      width: "clamp(160px, 25%, 300px)",
       padding: theme.spacing(2),
       display: "grid",
-      rowGap: "16px",
+      rowGap: theme.spacing(2) + "px",
       gridTemplateRows: "repeat(4, 40px)",
     },
   })
